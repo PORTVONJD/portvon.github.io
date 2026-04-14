@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTVON | passion. portfolio. prosperity.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold-dark: #997300;
+            --gold-light: #ffc000;
+            --gold-mid: #d4a012;
+            --black: #000000;
+            --dark-bg: #0a0a0a;
+            --panel-bg: #0f0f0f;
+            --border-color: #1a1a1a;
+            --border-gold: #332600;
+            --text-dim: #555555;
+            --text-mid: #888888;
+            --text-light: #aaaaaa;
+            --green: #00c853;
+            --red: #ff1744;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--black);
+            color: #cccccc;
+            font-family: 'IBM Plex Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        /* ========== SCANLINE OVERLAY ========== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.03) 2px,
+                rgba(0, 0, 0, 0.03) 4px
+            );
+        }
+
+        /* ========== TOP BAR (Bloomberg style) ========== */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 32px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-bottom: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 1000;
+            font-size: 11px;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .top-bar .brand-tag {
+            color: var(--gold-light);
+            font-weight: 700;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 2px;
+            font-size: 11px;
+        }
+
+        .top-bar .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .top-bar .nav-links a {
+            color: var(--text-mid);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .top-bar .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-dim);
+            font-size: 10px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 32px;
+        }
+
+        .hero-grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(153, 115, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(153, 115, 0, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 40px 20px;
+        }
+
+        .hero-logo-bar {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            margin: 0 auto 24px;
+        }
+
+        .hero-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 600;
+            letter-spacing: 12px;
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero-tagline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 6px;
+            color: var(--gold-mid);
+            text-transform: lowercase;
+            margin-bottom: 48px;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-light);
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 300;
+        }
+
+        .terminal-prompt {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--gold-light);
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+
+        .terminal-prompt .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--gold-light);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .scroll-indicator .arrow {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(180deg, var(--gold-dark), transparent);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ========== SECTION STYLING ========== */
+        section {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .section-tag {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--black);
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            padding: 3px 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--text-mid);
+            text-transform: uppercase;
+        }
+
+        /* ========== ABOUT PANEL ========== */
+        .about-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-gold);
+            padding: 40px;
+            position: relative;
+        }
+
+        .about-panel::before {
+            content: 'PROFILE';
+            position: absolute;
+            top: -9px;
+            left: 20px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold-mid);
+            background: var(--panel-bg);
+            padding: 0 8px;
+        }
+
+        .about-name {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin-bottom: 4px;
+        }
+
+        .about-role {
+            font-size: 12px;
+            color: var(--text-mid);
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-item {
+            border-left: 2px solid var(--gold-dark);
+            padding-left: 12px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .about-text {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-light);
+            font-weight: 300;
+            margin-top: 24px;
+        }
+
+        /* ========== FOCUS SECTION ========== */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .focus-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            transition: border-color 0.3s, transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .focus-card:hover {
+            border-color: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        .focus-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .focus-card:hover::after {
+            opacity: 1;
+        }
+
+        .focus-icon {
+            font-size: 11px;
+            color: var(--gold-mid);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .focus-title {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #dddddd;
+            margin-bottom: 8px;
+        }
+
+        .focus-desc {
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-mid);
+        }
+
+        /* ========== SERIES SECTION ========== */
+        .series-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .series-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .series-item:hover {
+            border-color: var(--border-gold);
+            background: #111111;
+        }
+
+        .series-num {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold-dark);
+            min-width: 40px;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .series-info {
+            flex: 1;
+        }
+
+        .series-name {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #cccccc;
+            margin-bottom: 2px;
+        }
+
+        .series-meta {
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        .series-status {
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border: 1px solid;
+        }
+
+        .series-status.upcoming {
+            color: var(--gold-mid);
+            border-color: var(--border-gold);
+        }
+
+        .series-status.soon {
+            color: var(--text-dim);
+            border-color: var(--border-color);
+        }
+
+        /* ========== CONNECT SECTION ========== */
+        .connect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .connect-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            transition: border-color 0.3s, transform 0.2s;
+        }
+
+        .connect-link:hover {
+            border-color: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        .connect-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-gold);
+            color: var(--gold-light);
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .connect-name {
+            font-size: 13px;
+            color: #cccccc;
+            font-weight: 500;
+        }
+
+        .connect-handle {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            border-top: 1px solid var(--border-gold);
+            padding: 24px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        .footer-text .gold {
+            color: var(--gold-mid);
+        }
+
+        .footer-disclaimer {
+            font-size: 9px;
+            color: var(--text-dim);
+            margin-top: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            opacity: 0.6;
+        }
+
+        /* ========== TICKER BAR ========== */
+        .ticker-bar {
+            background: #0a0a0a;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            height: 28px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: scroll-ticker 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 24px;
+            font-size: 11px;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .ticker-symbol {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .ticker-value {
+            color: var(--text-mid);
+        }
+
+        .ticker-change.up {
+            color: var(--green);
+        }
+
+        .ticker-change.down {
+            color: var(--red);
+        }
+
+        @keyframes scroll-ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .top-bar .nav-links {
+                display: none;
+            }
+
+            .top-bar-right {
+                display: none;
+            }
+
+            section {
+                padding: 60px 16px;
+            }
+
+            .about-panel {
+                padding: 24px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-title {
+                letter-spacing: 6px;
+            }
+
+            .hero-tagline {
+                letter-spacing: 3px;
+                font-size: 12px;
+            }
+
+            .connect-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .series-status {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <span class="brand-tag">PORTVON</span>
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#focus">Focus</a>
+                <a href="#series">Series</a>
+                <a href="#connect">Connect</a>
+            </nav>
+        </div>
+        <div class="top-bar-right">
+            <span><span class="status-dot"></span>&nbsp; LIVE</span>
+            <span id="clock"></span>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-content">
+            <div class="hero-logo-bar"></div>
+            <h1 class="hero-title">PORTVON</h1>
+            <p class="hero-tagline">passion. portfolio. prosperity.</p>
+            <p class="hero-description">
+                Your guide to understanding the portfolio management industry. 
+                Real concepts. Real strategies. No textbook fluff.
+            </p>
+            <div class="terminal-prompt">
+                <span>portvon@terminal:~$</span>
+                <span class="cursor"></span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker-bar">
+        <div class="ticker-track">
+            <span class="ticker-item"><span class="ticker-symbol">EQUITIES</span><span class="ticker-value">Series 01</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">FIXED INCOME</span><span class="ticker-value">Series 02</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">EQUITY DEEP DIVE</span><span class="ticker-value">Series 03</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">COMMODITIES</span><span class="ticker-value">Series 04</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">INDEX / MF / ETF</span><span class="ticker-value">Series 05</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">RISK MGMT</span><span class="ticker-value">Series 06</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">DIVERSIFICATION</span><span class="ticker-value">Series 07</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">PORTFOLIO CONST.</span><span class="ticker-value">Series 08</span></span>
+            <!-- Duplicate for seamless scroll -->
+            <span class="ticker-item"><span class="ticker-symbol">EQUITIES</span><span class="ticker-value">Series 01</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">FIXED INCOME</span><span class="ticker-value">Series 02</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">EQUITY DEEP DIVE</span><span class="ticker-value">Series 03</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">COMMODITIES</span><span class="ticker-value">Series 04</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">INDEX / MF / ETF</span><span class="ticker-value">Series 05</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">RISK MGMT</span><span class="ticker-value">Series 06</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">DIVERSIFICATION</span><span class="ticker-value">Series 07</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">PORTFOLIO CONST.</span><span class="ticker-value">Series 08</span></span>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-header">
+            <span class="section-tag">01</span>
+            <span class="section-title">About</span>
+        </div>
+        <div class="about-panel fade-in">
+            <div class="about-name">Jatin</div>
+            <div class="about-role">Founder, Portvon</div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Education</div>
+                    <div class="stat-value">M.Sc. Finance</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Institution</div>
+                    <div class="stat-value">Frankfurt School</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Experience</div>
+                    <div class="stat-value">2.5+ Years</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Domain</div>
+                    <div class="stat-value">Portfolio Mgmt</div>
+                </div>
+            </div>
+            <p class="about-text">
+                I hold a Master of Finance degree from Frankfurt School of Finance and Management. 
+                With over two and a half years of experience in portfolio management and capital markets, 
+                I have built quantitative models using Python and worked hands-on across the finance domain.
+            </p>
+            <p class="about-text" style="margin-top: 12px;">
+                Portvon is my mission to break down the portfolio management industry into clear, 
+                practical, and honest content. No boring textbook explanations. Just real concepts, 
+                real strategies, and how this industry actually works.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOCUS -->
+    <section id="focus">
+        <div class="section-header">
+            <span class="section-tag">02</span>
+            <span class="section-title">Focus Areas</span>
+        </div>
+        <div class="focus-grid">
+            <div class="focus-card fade-in">
+                <div class="focus-icon">[ ASSETS ]</div>
+                <div class="focus-title">Financial Assets</div>
+                <div class="focus-desc">Understanding every asset class: equities, bonds, commodities, real estate, currencies, and more.</div>
+            </div>
+            <div class="focus-card fade-in">
+                <div class="focus-icon">[ RISK ]</div>
+                <div class="focus-title">Risk Management</div>
+                <div class="focus-desc">How risk is measured, managed, and mitigated in real portfolio management.</div>
+            </div>
+            <div class="focus-card fade-in">
+                <div class="focus-icon">[ STRATEGY ]</div>
+                <div class="focus-title">Portfolio Strategies</div>
+                <div class="focus-desc">Growth, value, momentum, passive vs active, and how real managers think about strategy.</div>
+            </div>
+            <div class="focus-card fade-in">
+                <div class="focus-icon">[ QUANT ]</div>
+                <div class="focus-title">Quantitative Models</div>
+                <div class="focus-desc">From basic metrics to advanced models: CAPM, factor models, and portfolio optimization.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERIES -->
+    <section id="series">
+        <div class="section-header">
+            <span class="section-tag">03</span>
+            <span class="section-title">Content Series</span>
+        </div>
+        <div class="series-list">
+            <div class="series-item fade-in">
+                <div class="series-num">01</div>
+                <div class="series-info">
+                    <div class="series-name">Financial Assets</div>
+                    <div class="series-meta">Equities, bonds, commodities, real estate, currencies, and more</div>
+                </div>
+                <span class="series-status upcoming">Upcoming</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">02</div>
+                <div class="series-info">
+                    <div class="series-name">Fixed Income Deep Dive</div>
+                    <div class="series-meta">Bond mechanics, pricing, yield, interest rates, credit ratings</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">03</div>
+                <div class="series-info">
+                    <div class="series-name">Equity Deep Dive</div>
+                    <div class="series-meta">Stock markets, valuation, fundamental analysis, sectors</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">04</div>
+                <div class="series-info">
+                    <div class="series-name">Commodities</div>
+                    <div class="series-meta">Gold, oil, agricultural commodities, and their role in portfolios</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">05</div>
+                <div class="series-info">
+                    <div class="series-name">Indexes, Mutual Funds & ETFs</div>
+                    <div class="series-meta">What indexes are, how funds are created, active vs passive</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">06</div>
+                <div class="series-info">
+                    <div class="series-name">Risk Management</div>
+                    <div class="series-meta">Types of risk, measurement, volatility, VaR, stress testing</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">07</div>
+                <div class="series-info">
+                    <div class="series-name">Portfolio Diversification</div>
+                    <div class="series-meta">Correlation, diversification benefits, and limitations</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">08</div>
+                <div class="series-info">
+                    <div class="series-name">Portfolio Construction & Asset Allocation</div>
+                    <div class="series-meta">Building portfolios, allocation strategies, rebalancing</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONNECT -->
+    <section id="connect">
+        <div class="section-header">
+            <span class="section-tag">04</span>
+            <span class="section-title">Connect</span>
+        </div>
+        <div class="connect-grid">
+            <a href="https://instagram.com/portvon" target="_blank" class="connect-link fade-in">
+                <div class="connect-icon">IG</div>
+                <div>
+                    <div class="connect-name">Instagram</div>
+                    <div class="connect-handle">@portvon</div>
+                </div>
+            </a>
+            <a href="https://tiktok.com/@portvon" target="_blank" class="connect-link fade-in">
+                <div class="connect-icon">TT</div>
+                <div>
+                    <div class="connect-name">TikTok</div>
+                    <div class="connect-handle">@portvon</div>
+                </div>
+            </a>
+            <a href="https://youtube.com/@portvon" target="_blank" class="connect-link fade-in">
+                <div class="connect-icon">YT</div>
+                <div>
+                    <div class="connect-name">YouTube</div>
+                    <div class="connect-handle">@portvon</div>
+                </div>
+            </a>
+            <a href="https://linkedin.com/company/portvon" target="_blank" class="connect-link fade-in">
+                <div class="connect-icon">IN</div>
+                <div>
+                    <div class="connect-name">LinkedIn</div>
+                    <div class="connect-handle">Portvon</div>
+                </div>
+            </a>
+            <a href="mailto:contact@portvon.com" class="connect-link fade-in">
+                <div class="connect-icon">@</div>
+                <div>
+                    <div class="connect-name">Email</div>
+                    <div class="connect-handle">contact@portvon.com</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p class="footer-text">
+            <span class="gold">PORTVON</span> &copy; 2026 &middot; passion. portfolio. prosperity.
+        </p>
+        <p class="footer-disclaimer">
+            Portvon is an educational platform focused on portfolio management concepts. 
+            Content shared is for educational purposes only and does not constitute investment advice. 
+            Always consult a qualified financial advisor before making investment decisions.
+        </p>
+    </div>
+
+    <script>
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = h + ':' + m + ':' + s + ' CET';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Scroll fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
