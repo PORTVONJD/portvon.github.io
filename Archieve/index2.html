@@ -75,7 +75,7 @@
             );
         }
 
-        /* ========== TOP BAR ========== */
+        /* ========== TOP BAR (Bloomberg style) ========== */
         .top-bar {
             position: fixed;
             top: 0;
@@ -326,10 +326,6 @@
             margin-bottom: 4px;
         }
 
-        .about-name .surname {
-            font-weight: 400;
-        }
-
         .about-role {
             font-size: 12px;
             color: var(--text-mid);
@@ -491,6 +487,11 @@
             border-color: var(--border-gold);
         }
 
+        .series-status.soon {
+            color: var(--text-dim);
+            border-color: var(--border-color);
+        }
+
         /* ========== CONNECT SECTION ========== */
         .connect-grid {
             display: grid;
@@ -538,11 +539,6 @@
             color: var(--text-dim);
             margin-top: 2px;
         }
-
-        #email-display {
-    font-size: 8.5px;
-    word-break: break-all;
-       }
 
         /* ========== FOOTER ========== */
         .footer {
@@ -606,6 +602,14 @@
 
         .ticker-value {
             color: var(--text-mid);
+        }
+
+        .ticker-change.up {
+            color: var(--green);
+        }
+
+        .ticker-change.down {
+            color: var(--red);
         }
 
         @keyframes scroll-ticker {
@@ -676,7 +680,6 @@
                 <a href="#about">About</a>
                 <a href="#focus">Focus</a>
                 <a href="#series">Series</a>
-                <a href="custom.html">Custom</a>
                 <a href="#connect">Connect</a>
             </nav>
         </div>
@@ -698,7 +701,7 @@
                 Real concepts. Real strategies. No textbook fluff.
             </p>
             <div class="terminal-prompt">
-                <span>portvon:~$</span>
+                <span>portvon@terminal:~$</span>
                 <span class="cursor"></span>
             </div>
         </div>
@@ -711,15 +714,23 @@
     <!-- TICKER -->
     <div class="ticker-bar">
         <div class="ticker-track">
-            <span class="ticker-item"><span class="ticker-symbol">FINANCIAL ASSETS</span><span class="ticker-value">Series 01</span></span>
-            <span class="ticker-item"><span class="ticker-symbol">PORTVON</span><span class="ticker-value">passion. portfolio. prosperity.</span></span>
-            <span class="ticker-item"><span class="ticker-symbol">CUSTOM CODING</span><span class="ticker-value">Python strategy builds</span></span>
-            <span class="ticker-item"><span class="ticker-symbol">UPCOMING</span><span class="ticker-value">More series soon</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">EQUITIES</span><span class="ticker-value">Series 01</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">FIXED INCOME</span><span class="ticker-value">Series 02</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">EQUITY DEEP DIVE</span><span class="ticker-value">Series 03</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">COMMODITIES</span><span class="ticker-value">Series 04</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">INDEX / MF / ETF</span><span class="ticker-value">Series 05</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">RISK MGMT</span><span class="ticker-value">Series 06</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">DIVERSIFICATION</span><span class="ticker-value">Series 07</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">PORTFOLIO CONST.</span><span class="ticker-value">Series 08</span></span>
             <!-- Duplicate for seamless scroll -->
-            <span class="ticker-item"><span class="ticker-symbol">FINANCIAL ASSETS</span><span class="ticker-value">Series 01</span></span>
-            <span class="ticker-item"><span class="ticker-symbol">PORTVON</span><span class="ticker-value">passion. portfolio. prosperity.</span></span>
-            <span class="ticker-item"><span class="ticker-symbol">CUSTOM CODING</span><span class="ticker-value">Python strategy builds</span></span>
-            <span class="ticker-item"><span class="ticker-symbol">UPCOMING</span><span class="ticker-value">More series soon</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">EQUITIES</span><span class="ticker-value">Series 01</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">FIXED INCOME</span><span class="ticker-value">Series 02</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">EQUITY DEEP DIVE</span><span class="ticker-value">Series 03</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">COMMODITIES</span><span class="ticker-value">Series 04</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">INDEX / MF / ETF</span><span class="ticker-value">Series 05</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">RISK MGMT</span><span class="ticker-value">Series 06</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">DIVERSIFICATION</span><span class="ticker-value">Series 07</span></span>
+            <span class="ticker-item"><span class="ticker-symbol">PORTFOLIO CONST.</span><span class="ticker-value">Series 08</span></span>
         </div>
     </div>
 
@@ -730,7 +741,7 @@
             <span class="section-title">About</span>
         </div>
         <div class="about-panel fade-in">
-            <div class="about-name">Jatin <span class="surname">Dhurve</span></div>
+            <div class="about-name">Jatin</div>
             <div class="about-role">Founder, Portvon</div>
             <div class="about-stats">
                 <div class="stat-item">
@@ -806,7 +817,63 @@
                     <div class="series-name">Financial Assets</div>
                     <div class="series-meta">Equities, bonds, commodities, real estate, currencies, and more</div>
                 </div>
-                <span class="series-status upcoming">Coming Soon</span>
+                <span class="series-status upcoming">Upcoming</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">02</div>
+                <div class="series-info">
+                    <div class="series-name">Fixed Income Deep Dive</div>
+                    <div class="series-meta">Bond mechanics, pricing, yield, interest rates, credit ratings</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">03</div>
+                <div class="series-info">
+                    <div class="series-name">Equity Deep Dive</div>
+                    <div class="series-meta">Stock markets, valuation, fundamental analysis, sectors</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">04</div>
+                <div class="series-info">
+                    <div class="series-name">Commodities</div>
+                    <div class="series-meta">Gold, oil, agricultural commodities, and their role in portfolios</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">05</div>
+                <div class="series-info">
+                    <div class="series-name">Indexes, Mutual Funds & ETFs</div>
+                    <div class="series-meta">What indexes are, how funds are created, active vs passive</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">06</div>
+                <div class="series-info">
+                    <div class="series-name">Risk Management</div>
+                    <div class="series-meta">Types of risk, measurement, volatility, VaR, stress testing</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">07</div>
+                <div class="series-info">
+                    <div class="series-name">Portfolio Diversification</div>
+                    <div class="series-meta">Correlation, diversification benefits, and limitations</div>
+                </div>
+                <span class="series-status soon">Soon</span>
+            </div>
+            <div class="series-item fade-in">
+                <div class="series-num">08</div>
+                <div class="series-info">
+                    <div class="series-name">Portfolio Construction & Asset Allocation</div>
+                    <div class="series-meta">Building portfolios, allocation strategies, rebalancing</div>
+                </div>
+                <span class="series-status soon">Soon</span>
             </div>
         </div>
     </section>
@@ -818,28 +885,28 @@
             <span class="section-title">Connect</span>
         </div>
         <div class="connect-grid">
-            <a href="https://www.instagram.com/portvon.official?igsh=d21jZ2poOXFvc3l3&utm_source=qr" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
+            <a href="https://instagram.com/portvon" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
                 <div class="connect-icon">IG</div>
                 <div>
                     <div class="connect-name">Instagram</div>
-                    <div class="connect-handle">@portvon.official</div>
+                    <div class="connect-handle">@portvon</div>
                 </div>
             </a>
-            <a href="https://www.threads.com/@portvon.official?igshid=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
-                <div class="connect-icon">TH</div>
+            <a href="https://tiktok.com/@portvon" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
+                <div class="connect-icon">TT</div>
                 <div>
-                    <div class="connect-name">Threads</div>
-                    <div class="connect-handle">@portvon.official</div>
+                    <div class="connect-name">TikTok</div>
+                    <div class="connect-handle">@portvon</div>
                 </div>
             </a>
-            <a href="https://x.com/portvonofficial?s=21" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
-                <div class="connect-icon">X</div>
+            <a href="https://youtube.com/@portvon" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
+                <div class="connect-icon">YT</div>
                 <div>
-                    <div class="connect-name">X</div>
-                    <div class="connect-handle">@portvonofficial</div>
+                    <div class="connect-name">YouTube</div>
+                    <div class="connect-handle">@portvon</div>
                 </div>
             </a>
-            <a href="https://www.linkedin.com/company/portvon/" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
+            <a href="https://linkedin.com/company/portvon" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
                 <div class="connect-icon">IN</div>
                 <div>
                     <div class="connect-name">LinkedIn</div>
@@ -893,7 +960,7 @@
 
         // Email obfuscation
         (function() {
-            var user = 'jatin.dhurve';
+            var user = 'contact';
             var domain = 'portvon.com';
             var addr = user + '@' + domain;
             var link = document.getElementById('email-link');

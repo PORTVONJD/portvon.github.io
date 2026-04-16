@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    <title>PORTVON | Custom Coding Services</title>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        :root {
+            --gold-dark: #997300;
+            --gold-light: #ffc000;
+            --gold-mid: #d4a012;
+            --black: #000000;
+            --panel-bg: #0f0f0f;
+            --border-color: #1a1a1a;
+            --border-gold: #332600;
+            --text-dim: #555555;
+            --text-mid: #888888;
+            --text-light: #aaaaaa;
+            --green: #00c853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--black);
+            color: #cccccc;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.03) 2px,
+                rgba(0, 0, 0, 0.03) 4px
+            );
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 32px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-bottom: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 1000;
+            font-size: 11px;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .top-bar .brand-tag {
+            color: var(--gold-light);
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        .top-bar .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .top-bar .nav-links a {
+            color: var(--text-mid);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .top-bar .nav-links a:hover,
+        .top-bar .nav-links a.active {
+            color: var(--gold-light);
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-dim);
+            font-size: 10px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding-top: 100px;
+            padding-bottom: 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-gold);
+            background-image:
+                linear-gradient(rgba(153, 115, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(153, 115, 0, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .breadcrumb {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-mid);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--gold-light);
+        }
+
+        .breadcrumb .separator {
+            color: var(--gold-dark);
+            margin: 0 8px;
+        }
+
+        .page-title {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 600;
+            letter-spacing: 6px;
+            background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            padding: 0 20px;
+        }
+
+        .page-subtitle {
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--gold-mid);
+            text-transform: lowercase;
+            padding: 0 20px;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            width: 100%;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        .section-tag {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--black);
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            padding: 3px 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--text-mid);
+            text-transform: uppercase;
+        }
+
+        /* INTRO PANEL */
+        .intro-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-gold);
+            padding: 40px;
+            position: relative;
+            margin-bottom: 48px;
+        }
+
+        .intro-panel::before {
+            content: 'SERVICE';
+            position: absolute;
+            top: -9px;
+            left: 20px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold-mid);
+            background: var(--panel-bg);
+            padding: 0 8px;
+        }
+
+        .intro-headline {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--gold-light);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .intro-text {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-light);
+            font-weight: 300;
+            margin-bottom: 14px;
+        }
+
+        .intro-text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* WORKFLOW */
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .workflow-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .workflow-card:hover {
+            border-color: var(--gold-dark);
+        }
+
+        .workflow-step {
+            font-size: 11px;
+            color: var(--gold-mid);
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .workflow-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #dddddd;
+            margin-bottom: 8px;
+        }
+
+        .workflow-desc {
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-mid);
+        }
+
+        /* SCOPE LIST */
+        .scope-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .scope-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            position: relative;
+        }
+
+        .scope-panel.included {
+            border-color: var(--border-gold);
+        }
+
+        .scope-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold-mid);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .scope-panel.excluded .scope-label {
+            color: var(--text-mid);
+        }
+
+        .scope-list {
+            list-style: none;
+        }
+
+        .scope-list li {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-light);
+            padding: 6px 0 6px 18px;
+            position: relative;
+        }
+
+        .scope-panel.included .scope-list li::before {
+            content: '+';
+            position: absolute;
+            left: 0;
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        .scope-panel.excluded .scope-list li::before {
+            content: '-';
+            position: absolute;
+            left: 0;
+            color: var(--text-dim);
+            font-weight: 700;
+        }
+
+        /* CONTACT PANEL */
+        .contact-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-gold);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .contact-panel::before {
+            content: 'GET IN TOUCH';
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold-mid);
+            background: var(--panel-bg);
+            padding: 0 8px;
+        }
+
+        .contact-headline {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--gold-light);
+            margin-bottom: 12px;
+        }
+
+        .contact-note {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .email-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 22px;
+            background: transparent;
+            border: 1px solid var(--gold-dark);
+            color: var(--gold-light);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+            font-weight: 500;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .email-button:hover {
+            background: rgba(153, 115, 0, 0.1);
+            border-color: var(--gold-light);
+        }
+
+        .email-button .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border: 1px solid var(--gold-dark);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .contact-hint {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* DISCLAIMER */
+        .disclaimer-box {
+            background: rgba(153, 115, 0, 0.03);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--gold-dark);
+            padding: 16px 20px;
+            margin-bottom: 32px;
+        }
+
+        .disclaimer-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold-mid);
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .disclaimer-text {
+            font-size: 12px;
+            color: var(--text-light);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid var(--border-gold);
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        .footer-text .gold {
+            color: var(--gold-mid);
+        }
+
+        .footer-disclaimer {
+            font-size: 9px;
+            color: var(--text-dim);
+            margin-top: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            opacity: 0.6;
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .top-bar .nav-links {
+                display: none;
+            }
+
+            .top-bar-right {
+                display: none;
+            }
+
+            main {
+                padding: 40px 16px;
+            }
+
+            .intro-panel,
+            .contact-panel {
+                padding: 24px;
+            }
+
+            .scope-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title {
+                letter-spacing: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a href="index.html" class="brand-tag">PORTVON</a>
+            <nav class="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#focus">Focus</a>
+                <a href="index.html#series">Series</a>
+                <a href="custom.html" class="active">Custom</a>
+                <a href="index.html#connect">Connect</a>
+            </nav>
+        </div>
+        <div class="top-bar-right">
+            <span><span class="status-dot"></span>&nbsp; LIVE</span>
+            <span id="clock"></span>
+        </div>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span>Custom Coding</span>
+        </div>
+        <h1 class="page-title">CUSTOM CODING</h1>
+        <p class="page-subtitle">your strategy. my python.</p>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- INTRO -->
+        <div class="section-header">
+            <span class="section-tag">01</span>
+            <span class="section-title">Overview</span>
+        </div>
+
+        <div class="intro-panel fade-in">
+            <p class="intro-headline">
+                You bring the investment strategy. I build the Python implementation.
+            </p>
+            <p class="intro-text">
+                If you already have a strategy idea, whether it is a custom screener, a backtest, 
+                a portfolio optimization routine, or any other finance-related logic, I can turn it 
+                into clean, documented, working Python code.
+            </p>
+            <p class="intro-text">
+                This is a technical build service. You define what the strategy does. I focus on 
+                writing code that executes it reliably, with proper structure, error handling, 
+                and documentation so you can run it, audit it, and extend it yourself.
+            </p>
+        </div>
+
+        <!-- WORKFLOW -->
+        <div class="section-header">
+            <span class="section-tag">02</span>
+            <span class="section-title">How It Works</span>
+        </div>
+
+        <div class="workflow-grid">
+            <div class="workflow-card fade-in">
+                <div class="workflow-step">[ STEP 01 ]</div>
+                <div class="workflow-title">Discovery</div>
+                <div class="workflow-desc">You describe the strategy, the inputs, the expected outputs, and any specific requirements.</div>
+            </div>
+            <div class="workflow-card fade-in">
+                <div class="workflow-step">[ STEP 02 ]</div>
+                <div class="workflow-title">Quote &amp; Scope</div>
+                <div class="workflow-desc">I assess complexity and share a fixed quote, clear timeline, and defined deliverables in writing.</div>
+            </div>
+            <div class="workflow-card fade-in">
+                <div class="workflow-step">[ STEP 03 ]</div>
+                <div class="workflow-title">Build</div>
+                <div class="workflow-desc">I write, test, and document the code. One round of revisions is included within the agreed scope.</div>
+            </div>
+            <div class="workflow-card fade-in">
+                <div class="workflow-step">[ STEP 04 ]</div>
+                <div class="workflow-title">Delivery</div>
+                <div class="workflow-desc">You receive the Python code, a README with setup and usage instructions, and sample outputs.</div>
+            </div>
+        </div>
+
+        <!-- SCOPE -->
+        <div class="section-header">
+            <span class="section-tag">03</span>
+            <span class="section-title">Scope</span>
+        </div>
+
+        <div class="scope-grid">
+            <div class="scope-panel included fade-in">
+                <div class="scope-label">What's Included</div>
+                <ul class="scope-list">
+                    <li>Clean, modular Python code</li>
+                    <li>Code comments and documentation</li>
+                    <li>README with setup instructions</li>
+                    <li>Example usage and sample output</li>
+                    <li>One round of revisions within scope</li>
+                    <li>Basic testing on sample data</li>
+                </ul>
+            </div>
+            <div class="scope-panel excluded fade-in">
+                <div class="scope-label">What's Not Included</div>
+                <ul class="scope-list">
+                    <li>Investment advice or strategy recommendations</li>
+                    <li>Live trading integration or broker setup</li>
+                    <li>Ongoing maintenance or updates</li>
+                    <li>Scope changes after the agreement</li>
+                    <li>Premium data feeds or paid API costs</li>
+                    <li>Performance guarantees of any kind</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="section-header">
+            <span class="section-tag">04</span>
+            <span class="section-title">Contact</span>
+        </div>
+
+        <div class="contact-panel fade-in">
+            <p class="contact-headline">Ready to start?</p>
+            <p class="contact-note">
+                Send a short email describing your strategy idea, the inputs it needs, 
+                and what you want the output to look like. I will review it and come back 
+                with a quote and timeline.
+            </p>
+            <a href="#" id="email-button" class="email-button" onclick="return false;">
+                <span class="icon">@</span>
+                <span id="email-button-text">Loading...</span>
+            </a>
+            <p class="contact-hint">Response time: usually within 2 business days</p>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer-box fade-in">
+            <div class="disclaimer-label">Disclaimer</div>
+            <p class="disclaimer-text">
+                This is a technical coding service only. It does not constitute investment, 
+                financial, legal, or tax advice. The choice of strategy, assumptions, and any 
+                decisions based on the delivered code are entirely the client's responsibility. 
+                All code is delivered for educational and research purposes.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p class="footer-text">
+            <span class="gold">PORTVON</span> &copy; 2026 &middot; passion. portfolio. prosperity.
+        </p>
+        <p class="footer-disclaimer">
+            Portvon is an educational platform focused on portfolio management concepts. 
+            Content shared is for educational purposes only and does not constitute investment advice. 
+            Always consult a qualified financial advisor before making investment decisions.
+        </p>
+    </div>
+
+    <script>
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = h + ':' + m + ':' + s + ' CET';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Scroll fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Email obfuscation
+        (function() {
+            var user = 'jatin.dhurve';
+            var domain = 'portvon.com';
+            var addr = user + '@' + domain;
+            var subject = encodeURIComponent('Custom Coding Inquiry');
+            var btn = document.getElementById('email-button');
+            var btnText = document.getElementById('email-button-text');
+            if (btn) {
+                btn.href = 'mailto:' + addr + '?subject=' + subject;
+                btn.removeAttribute('onclick');
+            }
+            if (btnText) {
+                btnText.textContent = addr;
+            }
+        })();
+    </script>
+
+</body>
+</html>
