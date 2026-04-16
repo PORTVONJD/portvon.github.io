@@ -146,6 +146,27 @@
             50% { opacity: 0.4; }
         }
 
+        /* ========== HAMBURGER (hidden on desktop) ========== */
+        .hamburger {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid var(--border-gold);
+            color: var(--gold-light);
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: border-color 0.2s;
+        }
+
+        .hamburger:hover {
+            border-color: var(--gold-light);
+        }
+
         /* ========== HERO SECTION ========== */
         .hero {
             min-height: 100vh;
@@ -540,9 +561,9 @@
         }
 
         #email-display {
-    font-size: 8.5px;
-    word-break: break-all;
-       }
+            font-size: 8.5px;
+            word-break: break-all;
+        }
 
         /* ========== FOOTER ========== */
         .footer {
@@ -629,6 +650,35 @@
         @media (max-width: 768px) {
             .top-bar .nav-links {
                 display: none;
+                position: fixed;
+                top: 32px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: #0f0f0f;
+                border-bottom: 1px solid #332600;
+                z-index: 999;
+                padding: 8px 0;
+            }
+
+            .top-bar .nav-links.open {
+                display: flex;
+            }
+
+            .top-bar .nav-links a {
+                padding: 12px 20px;
+                font-size: 11px;
+                letter-spacing: 2px;
+                border-bottom: 1px solid #1a1a1a;
+            }
+
+            .top-bar .nav-links a:last-child {
+                border-bottom: none;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             .top-bar-right {
@@ -672,7 +722,8 @@
     <div class="top-bar">
         <div class="top-bar-left">
             <span class="brand-tag">PORTVON</span>
-            <nav class="nav-links">
+            <button class="hamburger" id="menu-toggle" aria-label="Menu">&#9776;</button>
+            <nav class="nav-links" id="nav-links">
                 <a href="#about">About</a>
                 <a href="#focus">Focus</a>
                 <a href="#series">Series</a>
@@ -694,7 +745,7 @@
             <h1 class="hero-title">PORTVON</h1>
             <p class="hero-tagline">passion. portfolio. prosperity.</p>
             <p class="hero-description">
-                Your guide to understanding the portfolio management industry. 
+                Your guide to understanding the portfolio management industry.<br>
                 Real concepts. Real strategies. No textbook fluff.
             </p>
             <div class="terminal-prompt">
@@ -825,7 +876,6 @@
                     <div class="connect-handle">@portvon.official</div>
                 </div>
             </a>
-
             <a href="https://www.youtube.com/@Portvon.official" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
                 <div class="connect-icon">YT</div>
                 <div>
@@ -833,7 +883,6 @@
                     <div class="connect-handle">@Portvon.official</div>
                 </div>
             </a>
-
             <a href="https://www.threads.com/@portvon.official?igshid=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" class="connect-link fade-in">
                 <div class="connect-icon">TH</div>
                 <div>
@@ -913,6 +962,25 @@
             }
             if (display) {
                 display.textContent = addr;
+            }
+        })();
+
+        // Mobile menu toggle
+        (function() {
+            var toggle = document.getElementById('menu-toggle');
+            var nav = document.getElementById('nav-links');
+            if (toggle && nav) {
+                toggle.addEventListener('click', function() {
+                    nav.classList.toggle('open');
+                    toggle.textContent = nav.classList.contains('open') ? '\u2715' : '\u2630';
+                });
+                var links = nav.querySelectorAll('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener('click', function() {
+                        nav.classList.remove('open');
+                        toggle.textContent = '\u2630';
+                    });
+                }
             }
         })();
     </script>

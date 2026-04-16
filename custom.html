@@ -146,6 +146,27 @@
             50% { opacity: 0.4; }
         }
 
+        /* HAMBURGER (hidden on desktop) */
+        .hamburger {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid var(--border-gold);
+            color: var(--gold-light);
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: border-color 0.2s;
+        }
+
+        .hamburger:hover {
+            border-color: var(--gold-light);
+        }
+
         /* PAGE HEADER */
         .page-header {
             padding-top: 100px;
@@ -422,7 +443,6 @@
             margin-right: auto;
         }
 
-
         .email-button {
             display: inline-flex;
             align-items: center;
@@ -448,8 +468,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border: 1px solid var(--gold-dark);
             font-size: 11px;
             font-weight: 700;
@@ -531,6 +551,35 @@
         @media (max-width: 768px) {
             .top-bar .nav-links {
                 display: none;
+                position: fixed;
+                top: 32px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: #0f0f0f;
+                border-bottom: 1px solid #332600;
+                z-index: 999;
+                padding: 8px 0;
+            }
+
+            .top-bar .nav-links.open {
+                display: flex;
+            }
+
+            .top-bar .nav-links a {
+                padding: 12px 20px;
+                font-size: 11px;
+                letter-spacing: 2px;
+                border-bottom: 1px solid #1a1a1a;
+            }
+
+            .top-bar .nav-links a:last-child {
+                border-bottom: none;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             .top-bar-right {
@@ -562,7 +611,8 @@
     <div class="top-bar">
         <div class="top-bar-left">
             <a href="index.html" class="brand-tag">PORTVON</a>
-            <nav class="nav-links">
+            <button class="hamburger" id="menu-toggle" aria-label="Menu">&#9776;</button>
+            <nav class="nav-links" id="nav-links">
                 <a href="index.html#about">About</a>
                 <a href="index.html#focus">Focus</a>
                 <a href="index.html#series">Series</a>
@@ -754,6 +804,25 @@
             }
             if (btnText) {
                 btnText.textContent = addr;
+            }
+        })();
+
+        // Mobile menu toggle
+        (function() {
+            var toggle = document.getElementById('menu-toggle');
+            var nav = document.getElementById('nav-links');
+            if (toggle && nav) {
+                toggle.addEventListener('click', function() {
+                    nav.classList.toggle('open');
+                    toggle.textContent = nav.classList.contains('open') ? '\u2715' : '\u2630';
+                });
+                var links = nav.querySelectorAll('a');
+                for (var i = 0; i < links.length; i++) {
+                    links[i].addEventListener('click', function() {
+                        nav.classList.remove('open');
+                        toggle.textContent = '\u2630';
+                    });
+                }
             }
         })();
     </script>
